@@ -30,5 +30,4 @@ Please use the following BibTeX citation if you use this repository in your work
   volume={34},
   year={2021}
 }
-
 ```
