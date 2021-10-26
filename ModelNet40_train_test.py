@@ -4,12 +4,11 @@ import torch.nn.functional as F
 from torch.optim import Adam
 from torch.optim.lr_scheduler import StepLR
 from torch.utils.data import DataLoader
-import matplotlib.pyplot as plt
 import os
 import itertools
 import random
 import numpy as np
-from pswe import PSWE, PMA, SAB, ISAB
+from pswe import PSWE
 from settransformer import PMA, SAB, ISAB
 from fspool import FSPool
 from collections import defaultdict
@@ -64,7 +63,7 @@ class Pooling(nn.Module):
         self.pooling = pooling
         # pooling mechanism
         if 'PSWE' in pooling:
-            self.pool = PSWE(d_in, num_ref_points, num_projections, ref)
+            self.pool = PSWE(d_in, num_ref_points, num_projections)
             self.num_outputs = num_projections
         elif 'PMA' in pooling:
             self.pool = PMA(d_in, num_seeds=num_ref_points, num_heads=1)
@@ -98,7 +97,7 @@ def train_test(b, e, n, experiment_ID, num_points_per_set, gpu_index):
     device = torch.device('cuda:' + str(gpu_index) if torch.cuda.is_available() else 'cpu')
 
     # create results directory if it doesn't exist
-    results_dir = './results/modelnet_results/{}/{}_{}_{}/'.format(num_points_per_set, b, e, n)
+    results_dir = './results/modelnet40/{}/{}_{}_{}/'.format(num_points_per_set, b, e, n)
     os.makedirs(results_dir, exist_ok=True)
 
     random_seed = int(base_random_seed + experiment_ID)
@@ -208,10 +207,10 @@ def train_test(b, e, n, experiment_ID, num_points_per_set, gpu_index):
 def main():
 
     backbones = ['MLP', 'ISAB']
-    embeddings = ['GAP', 'PMA', 'FSPool', 'SWE']
+    embeddings = ['GAP', 'PMA', 'FSPool', 'PSWE']
     num_projections_range = [1, 4, 16, 64, 256, 1024]
     experiment_IDs = list(1e4 * (1 + np.arange(10))) # 10 random seeds
-    num_points_per_set_range = [1024]
+    num_points_per_set_range = [1024] # 1024 points per set
 
     params_all = list(itertools.product(backbones,
                                         embeddings,

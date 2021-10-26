@@ -17,7 +17,6 @@ class PSWE(nn.Module):
         self.d_in = d_in
         self.num_ref_points = num_ref_points
         self.num_projections = num_projections
-        self.ref = ref
 
         uniform_ref = torch.linspace(-1, 1, num_ref_points).unsqueeze(1).repeat(1, num_projections)
         self.reference = nn.Parameter(uniform_ref)
