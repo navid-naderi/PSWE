@@ -23,11 +23,11 @@ python3 ModelNet40_train_test.py
 Please use the following BibTeX citation if you use this repository in your work:
 
 ```
-@article{naderializadeh2021_PSWE,
+@inproceedings{naderializadeh2021PSWE,
   title={Pooling by Sliced-{Wasserstein} Embedding},
-  author={Naderializadeh, Navid and Comer, Joseph F and Andrews, Reed and Hoffmann, Heiko and Kolouri, Soheil},
-  journal={Advances in Neural Information Processing Systems},
-  volume={34},
-  year={2021}
+  author={Navid Naderializadeh and Joseph F. Comer and Reed W Andrews and Heiko Hoffmann and Soheil Kolouri},
+  booktitle={Thirty-Fifth Conference on Neural Information Processing Systems},
+  year={2021},
+  url={https://openreview.net/forum?id=1z2T01DKEaE}
 }
 ```
